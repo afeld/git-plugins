@@ -1,0 +1,8 @@
+#!/bin/bash
+# Display the top contributors to a file.  Currently displays top four committers.
+#
+#   $ git fault <filename>
+
+# http://www.commandlinefu.com/commands/view/3889/prints-per-line-contribution-per-author-for-a-git-repository
+# TODO flag for the max number of users to display
+git blame -w -p $1 | grep '^author ' | sed 's/^author //' | sort -f | uniq -ic | sort -nr | head -n 4
