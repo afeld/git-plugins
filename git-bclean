@@ -1,0 +1,11 @@
+#!/bin/bash
+# Remove branches merged into the current one, both local and remote (origin only).
+
+# local
+# exclude the current branch
+git branch --merged | grep -v "\\*" | xargs -n 1 git branch -d
+
+# origin
+git remote prune origin
+# exclude master
+git branch -r --merged | grep origin/ | grep -v "HEAD\|master" | sed "s/^.*\//:/" | xargs git push origin
