@@ -1,0 +1,5 @@
+#!/bin/bash
+# Open a pull request on GitHub for the current branch.
+REPO=`git remote -v | grep "^origin.\+\(push\)" | perl -e 's/^.+:(.+)\.git.+$/$1/' -pi`
+BRANCH=`git current-branch`
+open "https://github.com/$REPO/compare/$BRANCH?expand=1"
