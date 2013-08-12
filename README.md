@@ -14,7 +14,9 @@ export PATH=path/to/git-plugins:$PATH
 
 ## See Also
 
+* [EasyGit](https://people.gnome.org/~newren/eg/)
 * [ghi](https://github.com/stephencelis/ghi)
 * [git-flow](https://github.com/nvie/gitflow)
 * [hub](http://hub.github.com/)
 * [HubFlow](http://datasift.github.io/gitflow/)
+* [Legit](http://www.git-legit.org/)
