@@ -6,5 +6,5 @@ if [ "$1" == "" ]; then
 else
   REMOTE=`git upstream`
   git fetch $REMOTE
-  git checkout -b $1 $REMOTE/master
+  git checkout -b $1 $REMOTE/master --no-track
 fi
