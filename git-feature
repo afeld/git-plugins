@@ -4,7 +4,7 @@ if [ "$1" == "" ]; then
   echo -e "ERROR: Must pass feature branch name.\n\n\t\$ git feature <branch>\n" 1>&2
   exit 1
 else
-  REMOTE=`( git remote | grep upstream ) || ( git remote | grep origin )`
+  REMOTE=`git upstream`
   git fetch $REMOTE
   git checkout -b $1 $REMOTE/master
 fi
