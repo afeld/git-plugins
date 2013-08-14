@@ -1,0 +1,5 @@
+#!/bin/bash
+# Update the current branch from the upstream master.
+REMOTE=`git upstream`
+git fetch $REMOTE
+git merge $REMOTE/master
