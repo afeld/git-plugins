@@ -1,0 +1,4 @@
+#!/bin/bash
+# Display the remote branches by newest commit.  May be helpful to limit the number returned with `| head -n 10`.
+# https://coderwall.com/p/ndinba
+git for-each-ref --sort=-committerdate --format='%(committerdate:short) %(refname:short)' refs/remotes/origin/
