@@ -1,0 +1,3 @@
+#!/bin/bash
+# Merge the specified branch, ignoring whitespace.
+git merge -s recursive -Xignore-space-change
