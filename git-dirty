@@ -1,0 +1,3 @@
+#!/bin/bash
+# Return non-zero exit code if tree is dirty, 0 if clean.
+exit $(git status --porcelain | wc -l)
