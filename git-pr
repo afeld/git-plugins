@@ -1,6 +1,6 @@
 #!/bin/bash
 # Open a pull request on GitHub for the current branch.
-REPO=`git remote -v | grep "^origin.\+\(push\)" | perl -e 's/^.+github.com[:\/](.+)\.git.+$/$1/' -pi`
+REPO=`git github-repo`
 BRANCH=`git current-branch`
 
 git push -u origin $BRANCH
