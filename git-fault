@@ -6,4 +6,4 @@
 # TODO flag for the max number of users to display
 NUM_TO_DISPLAY=4
 # http://www.commandlinefu.com/commands/view/3889/prints-per-line-contribution-per-author-for-a-git-repository
-git blame -w -p $1 | grep '^author ' | sed 's/^author //' | sort -f | uniq -ic | sort -nr | head -n $NUM_TO_DISPLAY
+git blame -w -p $1 | grep '^author ' | sed 's/^author //' | LC_ALL='C' sort -f | uniq -ic | sort -nr | head -n $NUM_TO_DISPLAY
