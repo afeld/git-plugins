@@ -1,3 +1,3 @@
 #!/bin/bash
 # Returns the user/repo for the origin remote.
-git remote -v | grep "^origin.\+\(push\)" | awk '{print $2}' | perl -e 's/^.+github.com[:\/](.+)(\.git)?$/$1/' -pi
+git remote -v | grep "^origin.\+\(push\)" | awk '{print $2}' | perl -e 's/^.+github.com[:\/](.+?)(\.git)?$/$1/' -pi
