@@ -31,6 +31,7 @@ def init_repo
 end
 
 def execute(command)
+  # ensure the scripts from this repository are used
   script_path = File.join(File.dirname(__FILE__), '..')
   `PATH=#{script_path}:$PATH #{command}`
 end
