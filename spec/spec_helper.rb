@@ -29,3 +29,8 @@ def init_repo
   Dir.chdir(WORKING_DIR)
   `git init`
 end
+
+def execute(command)
+  script_path = File.join(File.dirname(__FILE__), '..')
+  `#{script_path}/#{command}`
+end
