@@ -20,6 +20,6 @@ end
 
 def execute(command)
   # ensure the scripts from this repository are used
-  script_path = File.join(File.dirname(__FILE__), '..')
+  script_path = File.join(File.dirname(__FILE__), '..', 'bin')
   `PATH=#{script_path}:$PATH #{command}`
 end
