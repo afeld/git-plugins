@@ -32,5 +32,5 @@ end
 
 def execute(command)
   script_path = File.join(File.dirname(__FILE__), '..')
-  `#{script_path}/#{command}`
+  `PATH=#{script_path}:$PATH #{command}`
 end
