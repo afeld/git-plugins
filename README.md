@@ -1,4 +1,4 @@
-# Git Plugins
+# Git Plugins [![Build Status](https://travis-ci.org/afeld/git-plugins.svg?branch=travis)](https://travis-ci.org/afeld/git-plugins)
 
 A community collection of Git plugins.
 
