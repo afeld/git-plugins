@@ -1,11 +1,7 @@
 #!/bin/bash
-# Remove branches merged into the current one, both local and remote (origin only).
+# Remove remote branches merged into the current one (origin only).
 
 # TODO do the bclean off of upstream/master
-
-# local
-# exclude the current branch
-git branch --merged | grep -v "\\*" | xargs -n 1 git branch -d
 
 # origin
 git remote prune origin
