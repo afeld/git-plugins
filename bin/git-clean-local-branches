@@ -1,0 +1,8 @@
+#!/bin/bash
+# Remove local branches merged into the current one.
+
+# TODO do the bclean off of upstream/master
+
+# local
+# exclude the current branch
+git branch --merged | grep -v "\\*" | xargs -n 1 git branch -d
