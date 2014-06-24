@@ -39,6 +39,7 @@ git lg
 * [EasyGit](https://people.gnome.org/~newren/eg/)
 * [ghi](https://github.com/stephencelis/ghi)
 * [git-flow](https://github.com/nvie/gitflow)
+* [git-setup](https://github.com/afeld/git-setup)
 * [hub](http://hub.github.com/)
 * [HubFlow](http://datasift.github.io/gitflow/)
 * [Legit](http://www.git-legit.org/)
