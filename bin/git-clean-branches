@@ -1,5 +1,6 @@
 #!/bin/bash
 # Remove branches merged into the current one, both local and remote (origin only).
-
+#
+# See also: https://github.com/arc90/git-sweep
 git clean-local-branches
 git clean-remote-branches

@@ -1,7 +1,5 @@
 #!/bin/bash
 # Open a pull request on GitHub for the current branch.
-#
-# See also: https://github.com/arc90/git-sweep
 REPO=`git github-repo`
 BRANCH=`git current-branch`
 
