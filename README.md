@@ -16,7 +16,7 @@ export PATH=path/to/git-plugins/bin:$PATH
 
 ## Aliases
 
-The plugin names intentionally favor descriptiveness over terseness, but you should make shortcuts for yourself that make sense for you.  You can see some examples in [these dotfiles](https://github.com/afeld/dotfiles/blob/4fa98929b36694eb67f96508297c29fbb980a6cb/gitconfig#L16-L21).  To add a new shortcut:
+The plugin names intentionally favor descriptiveness over terseness, but you should make shortcuts for yourself that make sense for you.  You can see some examples in the `[alias]` section of [afeld/dotfiles](https://github.com/afeld/dotfiles/blob/master/gitconfig).  To add a new shortcut:
 
 ```bash
 git config --global alias.SHORT LONG
