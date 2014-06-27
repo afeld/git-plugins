@@ -1,5 +1,5 @@
 #!/bin/bash
 # Show the difference compared to the upstream master
-REMOTE=`git upstream`
+REMOTE=`git upstream-remote`
 git fetch $REMOTE
 git diff "$@" `git merge-base $REMOTE/master HEAD`

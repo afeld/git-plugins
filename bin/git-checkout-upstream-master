@@ -1,6 +1,6 @@
 #!/bin/bash
 # Check out the upstream master.
-REMOTE=`git upstream`
+REMOTE=`git upstream-remote`
 git fetch $REMOTE
 # TODO stash if tree is dirty
 git checkout $REMOTE/master
