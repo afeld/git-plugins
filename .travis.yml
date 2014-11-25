@@ -1,5 +1,8 @@
 language: ruby
 rvm:
   - 2.0.0
-before_script: git --version
+before_script:
+  - git config --global user.email "tester@example.com"
+  - git config --global user.name "Sally Tester"
+  - git --version
 script: bundle exec rspec
