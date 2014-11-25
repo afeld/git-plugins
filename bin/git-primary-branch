@@ -1,5 +1,5 @@
 #!/bin/bash
-# Print out the name of the branch to be considered "primary".
+# Print out the name of the branch to be considered "primary" (best guess).
 function num_remote_branches()
 {
   # http://stackoverflow.com/a/9624216/358804
