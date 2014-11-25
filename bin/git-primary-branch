@@ -1,0 +1,28 @@
+#!/bin/bash
+# Print out the name of the branch to be considered "primary".
+function num_remote_branches()
+{
+  # http://stackoverflow.com/a/9624216/358804
+  set +o pipefail
+  lineCount=$(git branch -r | wc -l ; exit "${PIPESTATUS[0]}")
+}
+
+function branch_exists()
+{
+  if git show-branch $1 > /dev/null; then
+    return 0
+  else
+    return 1
+  fi
+}
+
+REMOTE=$(git upstream-remote)
+# TODO don't use a global
+num_remote_branches
+if [ $lineCount -eq '1' ]; then
+  git branch -r | cut -d'/' -f2
+elif branch_exists "$REMOTE/master"; then
+  echo "master"
+elif branch_exists "$REMOTE/gh-pages"; then
+  echo "gh-pages"
+fi
