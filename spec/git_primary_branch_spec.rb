@@ -12,7 +12,7 @@ describe 'git-primary-branch' do
       to_branch_list(execute('git branch -r'))
     end
 
-    def set_up_remote(primary: 'master', secondary: nil)
+    def create_remote(primary: 'master', secondary: nil)
       Dir.chdir('remote_repo') do
         `git commit --allow-empty -m "initial commit"`
         `git branch -m #{primary}`
@@ -23,16 +23,29 @@ describe 'git-primary-branch' do
           expect(branches).to eq(["* #{primary}"])
         end
       end
+    end
 
+    def add_remote
       `git remote add origin remote_repo`
       expect(execute('git remote')).to eq("origin\n")
       `git fetch origin`
+    end
 
-      if secondary
-        expect(remote_branches).to eq(["origin/#{primary}", "origin/#{secondary}"].sort)
-      else
-        expect(remote_branches).to eq(["origin/#{primary}"])
-      end
+    def validate_remote_branches(branches)
+      branches = branches.map{|b| "origin/#{b}" }.sort
+      expect(remote_branches).to eq(branches)
+    end
+
+    def set_up_remote(primary: 'master', secondary: nil)
+      create_remote(primary: primary, secondary: secondary)
+      add_remote
+
+      branches = [primary, secondary].compact
+      validate_remote_branches(branches)
+    end
+
+    def random_branch_name
+      "rand-#{rand(100)}"
     end
 
     before do
@@ -40,7 +53,7 @@ describe 'git-primary-branch' do
     end
 
     it "uses an arbitrary branch when it's the only one" do
-      branch = "rand-#{rand(100)}"
+      branch = random_branch_name
       set_up_remote(primary: branch)
       expect(execute('git primary-branch')).to eq("#{branch}\n")
     end
@@ -51,7 +64,7 @@ describe 'git-primary-branch' do
     end
 
     it "favors `gh-pages` over others" do
-      branch = "rand-#{rand(100)}"
+      branch = random_branch_name
       set_up_remote(primary: 'gh-pages', secondary: branch)
       expect(execute('git primary-branch')).to eq("gh-pages\n")
     end
