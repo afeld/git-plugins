@@ -1,7 +1,6 @@
 #!/bin/bash
 # Show the difference compared to the upstream branch.
-REMOTE=`git upstream-remote`
-git fetch $REMOTE
+git fetch-upstream
 
 UPSTREAM=`git upstream-branch`
 git diff "$@" `git merge-base $UPSTREAM HEAD`

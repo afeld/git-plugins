@@ -24,7 +24,7 @@ function branch_exists()
   fi
 }
 
-REMOTE=$(git upstream-remote)
+REMOTE=`git upstream-remote`
 
 num_remote_branches
 num_local_branches
