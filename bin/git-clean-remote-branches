@@ -6,4 +6,5 @@
 # origin
 git remote prune origin
 # exclude master
-git branch -r --merged | grep origin/ | grep -v "HEAD\|master" | sed "s/^.*\//:/" | xargs git push origin
+BRANCH=`git primary-branch`
+git branch -r --merged | grep origin/ | grep -v "HEAD\|$BRANCH" | sed "s/^.*\//:/" | xargs git push origin

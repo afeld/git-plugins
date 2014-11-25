@@ -1,6 +1,8 @@
 #!/bin/bash
-# Check out the upstream master.
+# Check out the primary branch on the upstream remote.
 REMOTE=`git upstream-remote`
 git fetch $REMOTE
+
+UPSTREAM=`git upstream-branch`
 # TODO stash if tree is dirty
-git checkout $REMOTE/master
+git checkout $UPSTREAM

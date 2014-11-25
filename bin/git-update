@@ -2,4 +2,5 @@
 # Update the current branch from the upstream master.
 REMOTE=`git upstream-remote`
 git fetch $REMOTE
-git merge $REMOTE/master
+UPSTREAM=`git upstream-branch`
+git merge $UPSTREAM
