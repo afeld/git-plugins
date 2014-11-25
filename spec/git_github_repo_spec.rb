@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe 'git-github-repo' do
   it "handles git:// remotes" do
     `git remote add origin git@github.com:afeld/git-plugins-test.git`
