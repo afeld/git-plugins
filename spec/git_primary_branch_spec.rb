@@ -91,5 +91,13 @@ describe 'git-primary-branch' do
       create_branches(primary: 'gh-pages', secondary: branch)
       expect(execute('git primary-branch')).to eq("gh-pages\n")
     end
+
+    it "picks the current branch if it doesn't recognize the others" do
+      branch1 = random_branch_name
+      branch2 = random_branch_name
+      create_branches(primary: branch1, secondary: branch2)
+      `git checkout #{branch2}`
+      expect(execute('git primary-branch')).to eq("#{branch2}\n")
+    end
   end
 end

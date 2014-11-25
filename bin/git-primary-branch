@@ -44,4 +44,6 @@ elif branch_exists master; then
   echo "master"
 elif branch_exists gh-pages; then
   echo "gh-pages"
+else
+  git current-branch
 fi
