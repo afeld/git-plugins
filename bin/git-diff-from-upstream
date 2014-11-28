@@ -3,4 +3,4 @@
 git fetch-upstream
 
 UPSTREAM=`git upstream-branch`
-git diff "$@" `git merge-base $UPSTREAM HEAD`
+git diff `git merge-base $UPSTREAM HEAD` "$@"
