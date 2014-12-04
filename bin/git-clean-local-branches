@@ -1,7 +1,7 @@
 #!/bin/bash
 # Remove local branches merged into the current one.
 
-# TODO do the bclean off of upstream/master
+# TODO do the bclean off of primary branch
 
 # local
 # exclude the current branch

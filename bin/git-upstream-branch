@@ -1,0 +1,5 @@
+#!/bin/bash
+# Print out the name of the branch to be considered "primary" (best guess) on upstream remote.
+REMOTE=`git upstream-remote`
+BRANCH=`git primary-branch`
+echo "$REMOTE/$BRANCH"

@@ -1,10 +1,10 @@
 #!/bin/bash
-# Create a new feature branch based off the upstream master.
+# Create a new feature branch based off the primary branch.
 if [ "$1" == "" ]; then
   echo -e "ERROR: Must pass feature branch name.\n\n\t\$ git feature <branch>\n" 1>&2
   exit 1
 else
-  REMOTE=`git upstream-remote`
-  git fetch $REMOTE
-  git checkout -b $1 $REMOTE/master --no-track
+  git fetch-upstream
+  UPSTREAM=`git upstream-branch`
+  git checkout -b $1 $UPSTREAM --no-track
 fi

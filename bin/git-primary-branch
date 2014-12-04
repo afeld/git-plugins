@@ -1,0 +1,49 @@
+#!/bin/bash
+# Print out the name of the branch to be considered "primary" (best guess).
+
+function num_remote_branches()
+{
+  # http://stackoverflow.com/a/9624216/358804
+  set +o pipefail
+  numRemoteBranches=$(git branch -r | wc -l ; exit "${PIPESTATUS[0]}")
+}
+
+function num_local_branches()
+{
+  # http://stackoverflow.com/a/9624216/358804
+  set +o pipefail
+  numLocalBranches=$(git branch | wc -l ; exit "${PIPESTATUS[0]}")
+}
+
+function branch_exists()
+{
+  if git show-branch $1 > /dev/null; then
+    return 0
+  else
+    return 1
+  fi
+}
+
+REMOTE=`git upstream-remote`
+
+num_remote_branches
+num_local_branches
+
+# TODO don't use globals
+# TODO DRY
+if [ $numRemoteBranches -eq '1' ]; then
+  git branch -r | cut -d'/' -f2
+elif branch_exists "$REMOTE/master"; then
+  echo "master"
+elif branch_exists "$REMOTE/gh-pages"; then
+  echo "gh-pages"
+elif [ $numLocalBranches -eq '1' ]; then
+  # http://stackoverflow.com/a/10014163/358804
+  git branch | sed -n '/\* /s///p'
+elif branch_exists master; then
+  echo "master"
+elif branch_exists gh-pages; then
+  echo "gh-pages"
+else
+  git current-branch
+fi

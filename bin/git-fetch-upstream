@@ -1,0 +1,4 @@
+#!/bin/bash
+# Fetch from the upstream remote.
+REMOTE=`git upstream-remote`
+git fetch $REMOTE

@@ -1,4 +1,4 @@
-WORKING_DIR = 'tmp/scratch'
+WORKING_DIR = File.expand_path('../../tmp/scratch', __FILE__)
 
 RSpec.configure do |config|
   config.order = 'random'
