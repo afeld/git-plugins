@@ -3,6 +3,7 @@
 
 # TODO do the bclean off of primary branch
 
-# local
+git prune
+
 # exclude the current branch
 git branch --merged | grep -v "\\*" | xargs -n 1 git branch -d
