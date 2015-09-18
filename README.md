@@ -1,10 +1,10 @@
 # Git Plugins [![Build Status](https://travis-ci.org/afeld/git-plugins.svg?branch=travis)](https://travis-ci.org/afeld/git-plugins)
 
-A community collection of Git plugins.
+A community collection of Git plugins. Browse the scripts in the [`bin/`](bin) folder to see what's included.
 
 ## Example workflow
 
-If you are doing something like the [GitHub Flow](https://guides.github.com/introduction/flow/), your workflow for a feature might look something like this:
+A number of the plugins included in this project make the updating/branching/submitting process easier. As an example use case, if you are doing something like the [GitHub Flow](https://guides.github.com/introduction/flow/), your workflow for a feature might look something like this:
 
 ```bash
 git fetch origin
