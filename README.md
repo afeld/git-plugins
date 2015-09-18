@@ -34,6 +34,43 @@ git config --global alias.lg pretty-log
 git lg
 ```
 
+## Example workflow
+
+If you are doing something like the [GitHub Flow](https://guides.github.com/introduction/flow/), working on a typical feature might look like this:
+
+```bash
+git fetch origin
+git checkout -b feature-branch --no-track origin/master
+
+# make some changes, add some files
+
+git add -A
+git commit -m "fixed stuff"
+
+git push -u origin feature-branch
+
+# open your repository on github.com, and click the button to make a new pull request
+```
+
+That is _so much typing!_ Using these plugins, your workflow can be simplified to:
+
+```bash
+git f feature-branch
+
+# make some changes, add some files
+
+git ca -m "fixed stuff"
+git pr
+```
+
+So much better! :zap: To use this workflow, go through the [setup](#setup) above, then run the following to set up the aliases:
+
+```bash
+git config --global alias.ca commit-all
+git config --global alias.f create-feature-branch
+git config --global alias.pr create-pull-request
+```
+
 ## See Also
 
 * [EasyGit](https://people.gnome.org/~newren/eg/)

@@ -1,0 +1,5 @@
+#!/bin/bash
+# Commit all added, changed, and removed files. Accepts all options that `git commit` does.
+
+git add -A
+git commit "$@"
