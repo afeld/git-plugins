@@ -4,7 +4,7 @@ A community collection of Git plugins.
 
 ## Example workflow
 
-If you are doing something like the [GitHub Flow](https://guides.github.com/introduction/flow/), working on a typical feature might look like this:
+If you are doing something like the [GitHub Flow](https://guides.github.com/introduction/flow/), your workflow for a feature might look something like this:
 
 ```bash
 git fetch origin
@@ -20,7 +20,7 @@ git push -u origin feature-branch
 # open your repository on github.com, and click the button to make a new pull request
 ```
 
-That is _so much typing!_ Using these plugins, your workflow can be simplified to:
+That is _so much typing!_ Using these plugins, this can all be simplified to:
 
 ```bash
 git f feature-branch
@@ -31,7 +31,7 @@ git ca -m "fixed stuff"
 git pr
 ```
 
-So much better! :zap:
+So much easier! :zap:
 
 ## Setup
 
