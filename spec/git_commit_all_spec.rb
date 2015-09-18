@@ -11,19 +11,19 @@ describe 'git-commit-all' do
 
   it "includes changed files" do
     `echo "some text" >> file.txt`
-    `git commit-all -m "bar"`
+    execute('git commit-all -m "bar"')
     expect_clean_working_dir
   end
 
   it "includes added files" do
     `touch file2.txt`
-    `git commit-all -m "bar"`
+    execute('git commit-all -m "bar"')
     expect_clean_working_dir
   end
 
   it "includes deleted files" do
     `rm file.txt`
-    `git commit-all -m "bar"`
+    execute('git commit-all -m "bar"')
     expect_clean_working_dir
   end
 end
