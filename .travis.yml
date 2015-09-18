@@ -1,6 +1,7 @@
 language: ruby
 rvm:
   - 2.0.0
+sudo: false
 before_script:
   - git config --global user.email "tester@example.com"
   - git config --global user.name "Sally Tester"
