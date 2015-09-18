@@ -1,6 +1,6 @@
 # Git Plugins [![Build Status](https://travis-ci.org/afeld/git-plugins.svg?branch=travis)](https://travis-ci.org/afeld/git-plugins)
 
-A community collection of Git plugins. Browse the scripts in the [`bin/`](bin) folder to see what's included.
+A community collection of Git plugins. Browse [the scripts](bin) to see what's included.
 
 ## Example workflow
 
