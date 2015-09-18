@@ -1,0 +1,5 @@
+#!/bin/bash
+# Commit all changed files.
+
+git add -A
+git commit "$@"
