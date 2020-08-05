@@ -2,9 +2,18 @@ sudo: false
 language: ruby
 rvm:
   - 2.0.0
-cache: bundler
-before_script:
-  - git config --global user.email "tester@example.com"
-  - git config --global user.name "Sally Tester"
-  - git --version
-script: bundle exec rspec
+cache:
+  apt: true
+  bundler: true
+jobs:
+  include:
+    - stage: RSpec
+      before_script:
+        - git config --global user.email "tester@example.com"
+        - git config --global user.name "Sally Tester"
+        - git --version
+      script: bundle exec rspec
+    - stage: ShellCheck
+      before_script:
+        - sudo apt-get -y install shellcheck
+      script: "find bin -exec shellcheck {} +"
