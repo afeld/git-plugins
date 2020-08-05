@@ -62,6 +62,11 @@ describe 'git-primary-branch' do
       expect(execute('git primary-branch')).to eq("#{branch}\n")
     end
 
+    it "favors `main` over `master`" do
+      set_up_remote(primary: 'main', secondary: 'master')
+      expect(execute('git primary-branch')).to eq("main\n")
+    end
+
     it "favors `master` over `gh-pages`" do
       set_up_remote(secondary: 'gh-pages')
       expect(execute('git primary-branch')).to eq("master\n")
