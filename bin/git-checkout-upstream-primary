@@ -2,6 +2,6 @@
 # Check out the primary branch on the upstream remote.
 git fetch-upstream
 
-UPSTREAM=`git upstream-branch`
+UPSTREAM=$(git upstream-branch)
 # TODO stash if tree is dirty
-git checkout $UPSTREAM
+git checkout "$UPSTREAM"

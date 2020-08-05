@@ -2,5 +2,5 @@
 # Update the current branch from the primary branch.
 git fetch-upstream
 
-UPSTREAM=`git upstream-branch`
-git merge $UPSTREAM
+UPSTREAM=$(git upstream-branch)
+git merge "$UPSTREAM"

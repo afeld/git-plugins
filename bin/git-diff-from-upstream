@@ -2,5 +2,5 @@
 # Show the difference compared to the upstream branch.
 git fetch-upstream
 
-UPSTREAM=`git upstream-branch`
-git diff `git merge-base $UPSTREAM HEAD` "$@"
+UPSTREAM=$(git upstream-branch)
+git diff "$(git merge-base "$UPSTREAM" HEAD)" "$@"
