@@ -16,4 +16,4 @@ jobs:
     - stage: ShellCheck
       before_script:
         - sudo apt-get -y install shellcheck
-      script: "find bin -exec shellcheck {} +"
+      script: "find bin -type f -exec shellcheck {} +"
