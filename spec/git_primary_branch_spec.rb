@@ -1,4 +1,8 @@
+require 'fileutils'
+
 describe 'git-primary-branch' do
+  TEST_REPO_DIR = 'test_repo'
+
   def to_branch_list(branches_str)
     branches_str.split(/\n/).map(&:strip).sort
   end
@@ -22,7 +26,19 @@ describe 'git-primary-branch' do
     "rand-#{rand(100)}"
   end
 
+  around(:each) do |example|
+    if Dir.exists?(TEST_REPO_DIR)
+      # clean up
+      FileUtils.remove_dir(TEST_REPO_DIR)
+    end
+
+    `git init #{TEST_REPO_DIR}`
+    Dir.chdir(TEST_REPO_DIR, &example)
+  end
+
   describe "with a remote" do
+    REMOTE_REPO_DIR = 'remote_repo'
+
     def remote_branches
       to_branch_list(execute('git branch -r'))
     end
@@ -34,7 +50,7 @@ describe 'git-primary-branch' do
     end
 
     def add_remote
-      `git remote add origin remote_repo`
+      `git remote add origin #{REMOTE_REPO_DIR}`
       expect(execute('git remote')).to eq("origin\n")
       `git fetch origin`
     end
@@ -53,7 +69,7 @@ describe 'git-primary-branch' do
     end
 
     before do
-      `git init remote_repo`
+      `git init #{REMOTE_REPO_DIR}`
     end
 
     it "uses an arbitrary branch when it's the only one" do
