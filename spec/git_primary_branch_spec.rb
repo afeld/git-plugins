@@ -23,50 +23,27 @@ describe 'git-primary-branch' do
   end
 
   describe "with a remote" do
-    REMOTE_REPO_DIR = 'remote_repo'
+    CLONE_DIR = 'cloned_repo'
 
-    def remote_branches
-      to_branch_list(execute('git branch -r'))
-    end
-
-    def create_remote(primary: 'master', secondary: nil)
-      Dir.chdir(REMOTE_REPO_DIR) do
-        create_branches(primary: primary, secondary: secondary)
-      end
-    end
-
-    def add_remote
-      `git remote add origin #{REMOTE_REPO_DIR}`
-      expect(execute('git remote')).to eq("origin\n")
-      `git fetch origin`
-    end
-
-    def validate_remote_branches(branches)
-      branches = branches.map{|b| "origin/#{b}" }.sort
-      expect(remote_branches).to eq(branches)
-    end
-
-    def set_up_remote(primary: 'master', secondary: nil)
-      create_remote(primary: primary, secondary: secondary)
-      add_remote
-
-      branches = [primary, secondary].compact
-      validate_remote_branches(branches)
-    end
-
-    before do
-      `git init remote_repo`
+    def create_clone
+      `git clone #{WORKING_DIR} #{CLONE_DIR}`
     end
 
     it "uses the primary branch" do
-      set_up_remote()
-      expect(execute('git primary-branch')).to eq("master\n")
+      create_branches
+      create_clone
+      Dir.chdir(CLONE_DIR) do
+        expect(execute('git primary-branch')).to eq("master\n")
+      end
     end
 
     it "uses the primary branch when it's something arbitrary" do
       branch = random_branch_name
-      set_up_remote(primary: branch, secondary: 'master')
-      expect(execute('git primary-branch')).to eq("#{branch}\n")
+      create_branches(primary: branch, secondary: 'master')
+      create_clone
+      Dir.chdir(CLONE_DIR) do
+        expect(execute('git primary-branch')).to eq("#{branch}\n")
+      end
     end
   end
 
