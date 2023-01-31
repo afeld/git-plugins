@@ -1,0 +1,22 @@
+#!/bin/bash
+# Updates the base or parent branch
+CURRENT_BRANCH=$(git current-branch)
+PARENT_BRANCH=$(git parent-branch)
+COMMIT_LIST=$(git rev-list $CURRENT_BRANCH...$PARENT_BRANCH)
+
+git checkout -b $CURRENT_BRANCH-temp
+git fetch
+
+git checkout $PARENT_BRANCH
+git branch -D $CURRENT_BRANCH
+git checkout -b $CURRENT_BRANCH
+
+set -- junk $COMMIT_LIST
+shift
+for commit_id; do
+  git cherry-pick "$commit_id"
+done
+
+git push --set-upstream origin -f $CURRENT_BRANCH
+
+git log --oneline --color --decorate --graph --all
