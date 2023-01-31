@@ -1,8 +1,17 @@
 #!/bin/bash
 # Updates the base or parent branch
 CURRENT_BRANCH=$(git current-branch)
-PARENT_BRANCH=$(git parent-branch)
-COMMIT_LIST=$(git rev-list "$CURRENT_BRANCH"..."$PARENT_BRANCH")
+PARENT_BRANCH=""
+COMMIT_LIST=""
+
+if [ "$1" == "" ]; then
+  PARENT_BRANCH="$1"
+  COMMON_ANCESTOR=$(git merge-base "$CURRENT_BRANCH" "$PARENT_BRANCH")
+  COMMIT_LIST=$(git rev-list "$CURRENT_BRANCH"..."$COMMON_ANCESTOR")
+else
+  PARENT_BRANCH=$(git parent-branch)
+  COMMIT_LIST=$(git rev-list "$CURRENT_BRANCH"..."$PARENT_BRANCH")
+fi
 
 git checkout -b "$CURRENT_BRANCH-temp"
 git fetch
