@@ -1,31 +1,64 @@
 #!/bin/bash
 # Updates the base or parent branch
-CURRENT_BRANCH=$(git current-branch)
+CURRENT_BRANCH="$(git current-branch)"
 PARENT_BRANCH=""
-COMMIT_LIST=""
+COMMIT_MODE="multi-commit"
+COMMITS=""
 
-if [ "$1" == "" ]; then
-  PARENT_BRANCH="$1"
-  COMMON_ANCESTOR=$(git merge-base "$CURRENT_BRANCH" "$PARENT_BRANCH")
-  COMMIT_LIST=$(git rev-list "$CURRENT_BRANCH"..."$COMMON_ANCESTOR")
+while getopts ":-:" opt; do
+  case ${opt} in
+    -)
+      case ${OPTARG} in
+        "single-commit"*) COMMIT_MODE="single-commit";;
+      esac
+  esac
+done
+
+if [ "$COMMIT_MODE" == "single-commit" ]; then
+  if [ "$2" == "" ]; then
+    PARENT_BRANCH="$(git parent-branch)"
+  else
+    PARENT_BRANCH="$2"
+  fi
+  COMMITS="$(git rev-parse "$CURRENT_BRANCH")"
 else
-  PARENT_BRANCH=$(git parent-branch)
-  COMMIT_LIST=$(git rev-list "$CURRENT_BRANCH"..."$PARENT_BRANCH")
+  if [ "$1" == "" ]; then
+    PARENT_BRANCH="$(git parent-branch)"
+    COMMITS="$(git rev-list "$CURRENT_BRANCH"..."$PARENT_BRANCH")"
+  else
+    PARENT_BRANCH="$1"
+    COMMON_ANCESTOR="$(git merge-base "$CURRENT_BRANCH" "$PARENT_BRANCH")"
+    COMMITS="$(git rev-list "$CURRENT_BRANCH"..."$COMMON_ANCESTOR")"
+  fi
 fi
+
+echo "CURRENT BRANCH -> $CURRENT_BRANCH"
+echo "PARENT BRANCH -> $PARENT_BRANCH"
+echo "COMMIT LIST -> $COMMITS"
+echo "----"
 
 git checkout -b "$CURRENT_BRANCH-temp"
 git fetch
 
-git checkout "$PARENT_BRANCH"
-git branch -D "$CURRENT_BRANCH"
-git checkout -b "$CURRENT_BRANCH"
+git checkout "$PARENT_BRANCH" > /dev/null 2>&1
+git branch -D "$CURRENT_BRANCH" > /dev/null 2>&1
+git checkout -b "$CURRENT_BRANCH" > /dev/null 2>&1
 
-set -- junk "$COMMIT_LIST"
-shift
-for commit_id; do
-  git cherry-pick "$commit_id"
-done
+if [ "$COMMIT_MODE" == "single-commit" ]; then
+  echo "----"
+  echo "Cherry Picking -> $COMMITS"
+  git cherry-pick "$COMMITS"
+else
+  COMMIT_ARRAY=($COMMIT_LIST)
+  for commit_id in "${COMMIT_ARRAY[@]}"
+  do
+    echo "----"
+    echo "Cherry Picking -> $commit_id"
+    git cherry-pick "$commit_id"
+  done
+fi
 
+echo "----"
 git push --set-upstream origin -f "$CURRENT_BRANCH"
 
 git log --oneline --color --decorate --graph --all
