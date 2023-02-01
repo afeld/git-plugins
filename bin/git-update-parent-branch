@@ -31,12 +31,14 @@ else
     COMMITS="$(git rev-list "$CURRENT_BRANCH"..."$COMMON_ANCESTOR")"
   fi
 fi
+# TODO - What if we don't have commits?
 
 echo "CURRENT BRANCH -> $CURRENT_BRANCH"
 echo "PARENT BRANCH -> $PARENT_BRANCH"
 echo "COMMIT LIST -> $COMMITS"
 echo "----"
 
+# TODO - What if a checkout fails?
 git checkout -b "$CURRENT_BRANCH-temp"
 git fetch
 
@@ -44,6 +46,7 @@ git checkout "$PARENT_BRANCH" > /dev/null 2>&1
 git branch -D "$CURRENT_BRANCH" > /dev/null 2>&1
 git checkout -b "$CURRENT_BRANCH" > /dev/null 2>&1
 
+# TODO - What if a cherry-pick fails?
 if [ "$COMMIT_MODE" == "single-commit" ]; then
   echo "----"
   echo "Cherry Picking -> $COMMITS"
