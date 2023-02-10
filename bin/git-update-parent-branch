@@ -64,7 +64,7 @@ else
   if [ "$UNTIL_COMMIT" != "" ]; then
     for commit_id in "${COMMIT_ARRAY[@]}"
     do
-      if [ "$UNTIL_COMMIT" == "$commit_id" ]; then
+      if [[ "$commit_id" =~ "$UNTIL_COMMIT" ]]; then
         break
       fi
       COMMITS_TO_CHERRY+=("$commit_id")
@@ -74,7 +74,7 @@ else
   size=${#COMMITS_TO_CHERRY[@]}
   for (( i=size-1; i>=0; i-- )); do
     echo "----"
-    if [ "$UNTIL_COMMIT" == "${COMMITS_TO_CHERRY[i]}" ]; then
+    if [[ "${COMMITS_TO_CHERRY[i]}" =~ "$UNTIL_COMMIT" ]]; then
       echo "NOT Cherry Picking! -> ${COMMITS_TO_CHERRY[i]}"
     else
       echo "Cherry Picking -> ${COMMITS_TO_CHERRY[i]}"
