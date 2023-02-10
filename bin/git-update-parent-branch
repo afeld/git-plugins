@@ -3,6 +3,7 @@
 CURRENT_BRANCH="$(git current-branch)"
 PARENT_BRANCH=""
 COMMIT_MODE="multi-commit"
+UNTIL_COMMIT=""
 COMMITS=""
 
 while getopts ":-:" opt; do
@@ -30,6 +31,10 @@ else
     COMMON_ANCESTOR="$(git merge-base "$CURRENT_BRANCH" "$PARENT_BRANCH")"
     COMMITS="$(git rev-list "$CURRENT_BRANCH"..."$COMMON_ANCESTOR")"
   fi
+
+  if [ "$2" != "" ]; then
+    UNTIL_COMMIT="$2"
+  fi
 fi
 # TODO - What if we don't have commits?
 
@@ -52,12 +57,29 @@ if [ "$COMMIT_MODE" == "single-commit" ]; then
   echo "Cherry Picking -> $COMMITS"
   git cherry-pick "$COMMITS"
 else
-  COMMIT_ARRAY=($COMMIT_LIST)
-  for commit_id in "${COMMIT_ARRAY[@]}"
-  do
+  echo 'Multi Commit Mode Enabled!'
+  COMMIT_ARRAY=($COMMITS)
+  COMMITS_TO_CHERRY=()
+
+  if [ "$UNTIL_COMMIT" != "" ]; then
+    for commit_id in "${COMMIT_ARRAY[@]}"
+    do
+      if [ "$UNTIL_COMMIT" == "$commit_id" ]; then
+        break
+      fi
+      COMMITS_TO_CHERRY+=("$commit_id")
+    done
+  fi
+  
+  size=${#COMMITS_TO_CHERRY[@]}
+  for (( i=size-1; i>=0; i-- )); do
     echo "----"
-    echo "Cherry Picking -> $commit_id"
-    git cherry-pick "$commit_id"
+    if [ "$UNTIL_COMMIT" == "${COMMITS_TO_CHERRY[i]}" ]; then
+      echo "NOT Cherry Picking! -> ${COMMITS_TO_CHERRY[i]}"
+    else
+      echo "Cherry Picking -> ${COMMITS_TO_CHERRY[i]}"
+      git cherry-pick "${COMMITS_TO_CHERRY[i]}"
+    fi
   done
 fi
 
