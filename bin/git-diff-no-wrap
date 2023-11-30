@@ -1,0 +1,6 @@
+#!/bin/bash
+# Useful when you have a pager that wraps but want to not use it sometimes
+
+set -e
+
+GIT_PAGER="less -S" git diff "$@"
