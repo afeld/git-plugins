@@ -1,0 +1,3 @@
+#!/bin/bash
+# Detect the base or parent remote branch (best guess)
+git log --pretty=format:'%d' --abbrev-commit --decorate-refs-exclude=refs/tags | grep origin | head -2 | tail -1 | sed '1s/tag:[^,]*, //g' | sed -nr '1s/.*\(([^,]+),?.*/\1/p' | cut -d ')' -f 1 | cut -d '(' -f 1

@@ -1,0 +1,17 @@
+#!/bin/bash
+# Removes a branch specified as temp of another
+if [ "$1" == "" ]; then
+  echo -e "ERROR: Must pass branch name." 1>&2
+  exit 1
+fi
+
+if [ "$2" == "" ]; then
+  echo -e "ERROR: Must specify a temp branch name." 1>&2
+  exit 1
+fi
+
+git checkout "$2"
+git branch -D "$1"
+git checkout -b "$1"
+git branch -D "$2"
+git logra
