@@ -1,4 +1,6 @@
-# Git Plugins [![Build Status](https://travis-ci.org/afeld/git-plugins.svg?branch=travis)](https://travis-ci.org/afeld/git-plugins)
+# Git Plugins
+
+[![CI](https://github.com/afeld/git-plugins/actions/workflows/ci.yml/badge.svg)](https://github.com/afeld/git-plugins/actions/workflows/ci.yml)
 
 A community collection of Git plugins. Browse [the scripts](bin) to see what's included.
 
@@ -47,7 +49,7 @@ export PATH=path/to/git-plugins/bin:$PATH
 
 ## Aliases
 
-The plugin names intentionally favor descriptiveness over terseness, but you should make shortcuts for yourself that make sense for you.  You can see some examples in the `[alias]` section of [afeld/dotfiles](https://github.com/afeld/dotfiles/blob/master/gitconfig).  To add a new shortcut:
+The plugin names intentionally favor descriptiveness over terseness, but you should make shortcuts for yourself that make sense for you. You can see some examples in the `[alias]` section of [afeld/dotfiles](https://github.com/afeld/dotfiles/blob/master/gitconfig). To add a new shortcut:
 
 ```bash
 git config --global alias.SHORT LONG
@@ -75,12 +77,12 @@ git config --global alias.pr create-pull-request
 
 ## See Also
 
-* [Official GitHub CLI](https://cli.github.com/)
-* [Git Extras](https://github.com/tj/git-extras)
-* [EasyGit](https://people.gnome.org/~newren/eg/)
-* [ghi](https://github.com/stephencelis/ghi)
-* [git-flow](https://github.com/nvie/gitflow)
-* [git-setup](https://github.com/afeld/git-setup)
-* [hub](http://hub.github.com/)
-* [HubFlow](http://datasift.github.io/gitflow/)
-* [Legit](http://www.git-legit.org/)
+- [Official GitHub CLI](https://cli.github.com/)
+- [Git Extras](https://github.com/tj/git-extras)
+- [EasyGit](https://people.gnome.org/~newren/eg/)
+- [ghi](https://github.com/stephencelis/ghi)
+- [git-flow](https://github.com/nvie/gitflow)
+- [git-setup](https://github.com/afeld/git-setup)
+- [hub](http://hub.github.com/)
+- [HubFlow](http://datasift.github.io/gitflow/)
+- [Legit](http://www.git-legit.org/)
