@@ -1,0 +1,35 @@
+name: CI
+
+on: push
+
+jobs:
+  rspec:
+    name: RSpec
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.0.0
+          bundler-cache: true
+
+      - name: Configure Git
+        run: |
+          git config --global user.email "tester@example.com"
+          git config --global user.name "Sally Tester"
+
+      - name: Run RSpec
+        run: bundle exec rspec
+
+  shellcheck:
+    name: ShellCheck
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run ShellCheck
+        uses: ludeeus/action-shellcheck@master
