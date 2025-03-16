@@ -1,0 +1,89 @@
+#!/bin/bash
+# Updates the base or parent branch
+CURRENT_BRANCH="$(git current-branch)"
+PARENT_BRANCH=""
+COMMIT_MODE="multi-commit"
+UNTIL_COMMIT=""
+COMMITS=""
+
+while getopts ":-:" opt; do
+  case ${opt} in
+    -)
+      case ${OPTARG} in
+        "single-commit"*) COMMIT_MODE="single-commit";;
+      esac
+  esac
+done
+
+if [ "$COMMIT_MODE" == "single-commit" ]; then
+  if [ "$2" == "" ]; then
+    PARENT_BRANCH="$(git parent-branch)"
+  else
+    PARENT_BRANCH="$2"
+  fi
+  COMMITS="$(git rev-parse "$CURRENT_BRANCH")"
+else
+  if [ "$1" == "" ]; then
+    PARENT_BRANCH="$(git parent-branch)"
+    COMMITS="$(git rev-list "$CURRENT_BRANCH"..."$PARENT_BRANCH")"
+  else
+    PARENT_BRANCH="$1"
+    COMMON_ANCESTOR="$(git merge-base "$CURRENT_BRANCH" "$PARENT_BRANCH")"
+    COMMITS="$(git rev-list "$CURRENT_BRANCH"..."$COMMON_ANCESTOR")"
+  fi
+
+  if [ "$2" != "" ]; then
+    UNTIL_COMMIT="$2"
+  fi
+fi
+# TODO - What if we don't have commits?
+
+echo "CURRENT BRANCH -> $CURRENT_BRANCH"
+echo "PARENT BRANCH -> $PARENT_BRANCH"
+echo "COMMIT LIST -> $COMMITS"
+echo "----"
+
+# TODO - What if a checkout fails?
+git checkout -b "$CURRENT_BRANCH-temp"
+git fetch
+
+git checkout "$PARENT_BRANCH" > /dev/null 2>&1
+git branch -D "$CURRENT_BRANCH" > /dev/null 2>&1
+git checkout -b "$CURRENT_BRANCH" > /dev/null 2>&1
+
+# TODO - What if a cherry-pick fails?
+if [ "$COMMIT_MODE" == "single-commit" ]; then
+  echo "----"
+  echo "Cherry Picking -> $COMMITS"
+  git cherry-pick "$COMMITS"
+else
+  echo 'Multi Commit Mode Enabled!'
+  COMMIT_ARRAY=($COMMITS)
+  COMMITS_TO_CHERRY=()
+
+  if [ "$UNTIL_COMMIT" != "" ]; then
+    for commit_id in "${COMMIT_ARRAY[@]}"
+    do
+      if [[ "$commit_id" =~ "$UNTIL_COMMIT" ]]; then
+        break
+      fi
+      COMMITS_TO_CHERRY+=("$commit_id")
+    done
+  fi
+  
+  size=${#COMMITS_TO_CHERRY[@]}
+  for (( i=size-1; i>=0; i-- )); do
+    echo "----"
+    if [[ "${COMMITS_TO_CHERRY[i]}" =~ "$UNTIL_COMMIT" ]]; then
+      echo "NOT Cherry Picking! -> ${COMMITS_TO_CHERRY[i]}"
+    else
+      echo "Cherry Picking -> ${COMMITS_TO_CHERRY[i]}"
+      git cherry-pick "${COMMITS_TO_CHERRY[i]}"
+    fi
+  done
+fi
+
+echo "----"
+git push --set-upstream origin -f "$CURRENT_BRANCH"
+
+git log --oneline --color --decorate --graph --all
