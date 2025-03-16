@@ -1,5 +1,7 @@
 # Git Plugins
 
+[![CI](https://github.com/afeld/git-plugins/actions/workflows/ci.yml/badge.svg)](https://github.com/afeld/git-plugins/actions/workflows/ci.yml)
+
 A community collection of Git plugins. Browse [the scripts](bin) to see what's included.
 
 ## Example workflow
